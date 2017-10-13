@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="wrapper">
+
+
+
+
+  <div id="account_info_box" class="container-fluid form-group col-8">
+    <h1>{{title}}</h1>
+    <div id="submitted">
+      <p *ngIf="submitted" class="text-success">Thank you for registering with us {{users[0].firstname}}<br> We just sent you an email to {{users[0].email}}, and will send all mail to {{users[0].address}}<br> Have a wonderful day!</p>
+    </div>
+    <form (submit)="onSubmit(formdata)" name="formdata" #formdata='ngForm'>
+
+      *First name:
+      <input type="text" class="form-control" name="firstname" required minlength="4" maxlength="24" [(ngModel)]="user.firstname" #firstname='ngModel' />
+      <p class="text-danger" *ngIf="!firstname.valid && firstname.dirty">First Name is required (4 char min) </p>
+      <br> *Last Name:
+      <input type="text" class="form-control" name="lastname" required minlength="4" maxlength="24" [(ngModel)]="user.lastname" #lastname='ngModel' />
+      <p class="text-danger" *ngIf="!lastname.valid && lastname.dirty">Last Name is required (4 char min) </p>
+      <br> *Email:
+      <input type="email" class="form-control" name="email" required minlength="4" maxlength="24" [(ngModel)]="user.email" pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+        #email='ngModel' />
+      <p class="text-danger" *ngIf="!email.valid && email.dirty && !email.pattern">Must have valid email </p>
+      <br>*Password
+      <input type="password" class="form-control" name="pw" required minlength="4" maxlength="24" [(ngModel)]="user.pw" #pw='ngModel' />
+      <p class="text-danger" *ngIf="!pw.valid && pw.dirty">Must be valid password </p>
+      <br>*Password Conf
+      <input type="password" class="form-control" name="pwconf" required minlength="4" maxlength="24" [(ngModel)]="user.pwconf" #pwconf='ngModel' />
+      <p class="text-danger" *ngIf="(user.pw != user.pwconf) && pwconf.dirty">passwords must match </p>
+      <br>*Street Address
+      <input type="text" class="form-control" name="address" required minlength="4" maxlength="24" [(ngModel)]="user.address" #address='ngModel' />
+      <p class="text-danger" *ngIf="!address.valid && address.dirty">Must be valid Address </p>
+      <br>Unit/Apt #
+      <input type="text" class="form-control" name="address2" maxlength="24" [(ngModel)]="user.address2" #address2='ngModel' />
+      <p class="text-success" *ngIf="address2.dirty">Extra notes here are OK </p>
+      <br>*City:
+      <input type="text" class="form-control" name="city" required minlength="2" maxlength="24" [(ngModel)]="user.city" #city='ngModel' />
+      <p class="text-danger" *ngIf="!city.valid && city.dirty">City be valid </p>
+      <br>*State:
+      <select class="form-control" name="state" required [(ngModel)]="user.state" #state='ngModel'>
+        <option  class="form-control"value = "" style="display:none;" selected disabled></option>
+        	<option value="AL">Alabama</option>
+        	<option value="AK">Alaska</option>
+        	<option value="AZ">Arizona</option>
+        	<option value="AR">Arkansas</option>
+        	<option value="CA">California</option>
+        	<option value="CO">Colorado</option>
+        	<option value="CT">Connecticut</option>
+        	<option value="DE">Delaware</option>
+        	<option value="DC">District Of Columbia</option>
+        	<option value="FL">Florida</option>
+        	<option value="GA">Georgia</option>
+        	<option value="HI">Hawaii</option>
+        	<option value="ID">Idaho</option>
+        	<option value="IL">Illinois</option>
+        	<option value="IN">Indiana</option>
+        	<option value="IA">Iowa</option>
+        	<option value="KS">Kansas</option>
+        	<option value="KY">Kentucky</option>
+        	<option value="LA">Louisiana</option>
+        	<option value="ME">Maine</option>
+        	<option value="MD">Maryland</option>
+        	<option value="MA">Massachusetts</option>
+        	<option value="MI">Michigan</option>
+        	<option value="MN">Minnesota</option>
+        	<option value="MS">Mississippi</option>
+        	<option value="MO">Missouri</option>
+        	<option value="MT">Montana</option>
+        	<option value="NE">Nebraska</option>
+        	<option value="NV">Nevada</option>
+        	<option value="NH">New Hampshire</option>
+        	<option value="NJ">New Jersey</option>
+        	<option value="NM">New Mexico</option>
+        	<option value="NY">New York</option>
+        	<option value="NC">North Carolina</option>
+        	<option value="ND">North Dakota</option>
+        	<option value="OH">Ohio</option>
+        	<option value="OK">Oklahoma</option>
+        	<option value="OR">Oregon</option>
+        	<option value="PA">Pennsylvania</option>
+        	<option value="RI">Rhode Island</option>
+        	<option value="SC">South Carolina</option>
+        	<option value="SD">South Dakota</option>
+        	<option value="TN">Tennessee</option>
+        	<option value="TX">Texas</option>
+        	<option value="UT">Utah</option>
+        	<option value="VT">Vermont</option>
+        	<option value="VA">Virginia</option>
+        	<option value="WA">Washington</option>
+        	<option value="WV">West Virginia</option>
+        	<option value="WI">Wisconsin</option>
+        	<option value="WY">Wyoming</option>
+        </select><br> *I'm feeling lucky:
+      <label class="radio-inline">
+      <input type="radio" name="lucky" required value="true" [(ngModel)]="user.lucky" #lucky='ngModel'> Yes  </label>
+      <label class="radio-inline"> <input type="radio" name="lucky" value="false" [(ngModel)]="user.lucky" #lucky='ngModel'> No
+  </label>
+      <br><br>
+
+      <!-- <input *ngIf="formdata.valid" type='submit' class="btn btn-secondary" /> -->
+      <!-- <input *ngIf="formdata.valid" type='submit' class="btn btn-primary" /> -->
+      <button type="button" *ngIf="!formdata.valid" class="btn btn-primary disabled">Submit</button>
+      <button type="submit" *ngIf="formdata.valid" class="btn btn-primary">Submit</button>
+      <p class="text-danger" *ngIf="!formdata.valid">Please fill out all fields</p>
+      <p class="text-success" *ngIf="formdata.valid">Form Valid! </p>
+      <br>
+    </form>
+  </div>
+
+
+</div>
